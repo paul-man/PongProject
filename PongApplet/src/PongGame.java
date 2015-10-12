@@ -6,9 +6,9 @@ import java.awt.event.KeyListener;
 public class PongGame extends Applet implements Runnable, KeyListener {
 
 
-    public boolean up;
+    public boolean up, down, left, right;
     public boolean runGame = true;
-    public int x = 200, y = 0;
+    public int x = 200, y = 200;
     public Image offscreen;
     public Graphics d;
     /**
@@ -22,6 +22,12 @@ public class PongGame extends Applet implements Runnable, KeyListener {
         while (runGame) {
             if (up) {
                 y--;
+            } if (down) {
+                y++;
+            } if (right) {
+                x++;
+            } if (left)  {
+                x--;
             }
 
             repaint();
@@ -38,19 +44,41 @@ public class PongGame extends Applet implements Runnable, KeyListener {
 
     /**
      * Called when a key has been pressed down
+     * Do not control movements here, because this method is not called as frequently,
+     * movements will be delayed.
      */
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == e.VK_W) {
             up = true;
         }
+        if (e.getKeyCode() == e.VK_A) {
+            left = true;
+        }
+        if (e.getKeyCode() == e.VK_D) {
+            right = true;
+        }
+        if (e.getKeyCode() == e.VK_S) {
+            down = true;
+        }
     }
 
     /**
-     * called when a key has been let go after being pressed down
+     * Called when a key has been let go after being pressed down
      */
     public void keyReleased(KeyEvent e) {
-
+        if (e.getKeyCode() == e.VK_W) {
+            up = false;
+        }
+        if (e.getKeyCode() == e.VK_A) {
+            left = false;
+        }
+        if (e.getKeyCode() == e.VK_D) {
+            right = false;
+        }
+        if (e.getKeyCode() == e.VK_S) {
+            down = false;
+        }
     }
 
     /**

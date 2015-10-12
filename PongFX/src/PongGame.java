@@ -1,10 +1,23 @@
 import javafx.application.Application;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * Created by mobile-mann on 10/10/2015.
  */
-public class PongGame extends Application {
+public class PongGame extends Application implements KeyListener {
+
+    public boolean runGame = true,
+                   up, down, left, right;
+    public int x, y;
+    public Image offscreen;
+    public GraphicsContext g;
+    public Stage gameStage;
+
 
     /**
      * The main entry point for all JavaFX applications.
@@ -22,7 +35,75 @@ public class PongGame extends Application {
      * primary stages and will not be embedded in the browser.
      */
     public void start(Stage primaryStage) {
+        gameStage = primaryStage;
+        x = y = 200;
+
+
+        while(runGame) {
+
+            if (up) {
+                y++;
+            } if (down) {
+                y--;
+            } if (left) {
+                x--;
+            } if (right) {
+                x++;
+            }
+
+            repaint(g);
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Invoked when a key has been pressed.
+     * See the class description for {@link KeyEvent} for a definition of
+     * a key pressed event.
+     */
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == e.VK_W) {
+            up = true;
+        } if (e.getKeyCode() == e.VK_S) {
+            down = true;
+        } if (e.getKeyCode() == e.VK_A) {
+            left = true;
+        } if (e.getKeyCode() == e.VK_D) {
+            right = true;
+        }
+    }
+
+    /**
+     * Invoked when a key has been released.
+     * See the class description for {@link KeyEvent} for a definition of
+     * a key released event.
+     */
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == e.VK_W) {
+            up = false;
+        } if (e.getKeyCode() == e.VK_S) {
+            down = false;
+        } if (e.getKeyCode() == e.VK_A) {
+            left = false;
+        } if (e.getKeyCode() == e.VK_D) {
+            right = false;
+        }
+    }
+
+    public void keyTyped(KeyEvent e) {}
 
 }

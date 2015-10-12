@@ -1,3 +1,8 @@
+import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
+
+import java.awt.*;
+
 /**
  * Created by mobile-mann on 10/10/2015.
  */
@@ -22,7 +27,16 @@ public class PongGraphics extends PongGame{
      * </p>
      */
     @Override
-    public void init() throws Exception {
+    public void init() {
+        Scene gameScene = new Scene();
 
+    }
+
+    public void paint(GraphicsContext g) {
+
+    }
+
+    public void update(GraphicsContext g) {
+        paint(g);
     }
 }
